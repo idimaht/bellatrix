@@ -1,8 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('users')
 export class UserEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
@@ -10,4 +18,21 @@ export class UserEntity {
 
   @Column()
   email: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+  })
+  updatedAt: Date;
+
+  @Index()
+  @DeleteDateColumn({
+    type: 'timestamptz',
+    nullable: true,
+  })
+  deletedAt: Date;
 }
