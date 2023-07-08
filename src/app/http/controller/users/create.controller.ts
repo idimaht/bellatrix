@@ -1,34 +1,18 @@
-import path from 'path';
 import { UserEntity } from '../../../entities/user.entity';
 import { UsersService } from '../../../services/users.service';
 import { Body, Controller, Post } from '@nestjs/common';
+import { CreateDto } from '../../dtos/users/create.dto';
 
 @Controller({ path: 'users' })
 export class CreateController {
   constructor(private readonly usersService: UsersService) {}
-
   //create user
   @Post()
-  async create(@Body() user: UserEntity): Promise<UserEntity> {
-    return this.usersService.create(user);
+  async create(@Body() dto: CreateDto): Promise<UserEntity> {
+    console.log('create controller user', dto);
+
+    return this.usersService.create(dto);
   }
-
-  // //get all users
-  // @Get()
-  // async findAll(): Promise<UserEntity[]> {
-  //   return this.usersService.findAll();
-  // }
-
-  // //get user by id
-  // @Get(':id')
-  // async findOne(@Param('id') id: number): Promise<UserEntity> {
-  //   const user = await this.usersService.findById(id);
-  //   if (!user) {
-  //     throw new NotFoundException('User does not exist!');
-  //   } else {
-  //     return user;
-  //   }
-  // }
 
   // //delete user
   // @Delete(':id')

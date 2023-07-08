@@ -4,7 +4,6 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 config({ path: '.env' });
 
-console.log('typeorm config file');
 export const dataSourceOptions: DataSourceOptions = {
   type: process.env.DB_CONNECTION as any,
   host: process.env.DB_HOST,
@@ -12,7 +11,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  synchronize: false,
+  synchronize: true,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/database/migrations/*.{ts,js}'],
 };
