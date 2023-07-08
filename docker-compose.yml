@@ -20,7 +20,7 @@ services:
     environment:
       - PORT=${PORT}
     ports:
-      - '3001:3001'
+      - '3002:3002'
     depends_on:
       - database
     volumes:
