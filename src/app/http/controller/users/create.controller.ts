@@ -13,15 +13,4 @@ export class CreateController {
 
     return this.usersService.create(dto);
   }
-
-  // //delete user
-  // @Delete(':id')
-  // async delete(@Param('id') id: number): Promise<any> {
-  //   //handle error if user does not exist
-  //   const user = await this.usersService.findById(id);
-  //   if (!user) {
-  //     throw new NotFoundException('User does not exist!');
-  //   }
-  //   return this.usersService.delete(id);
-  // }
 }

@@ -2,7 +2,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { Controller, Delete, Param } from '@nestjs/common';
 import { UserEntity } from 'src/app/entities/user.entity';
 
-@Controller()
+@Controller({ path: 'users' })
 export class DeleteController {
   constructor(private readonly usersService: UsersService) {}
 

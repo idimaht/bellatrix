@@ -1,8 +1,13 @@
 import { CreateController } from './create.controller';
-import { FindAllController } from './find-all.controller';
-import { FindOneController } from './find-one.controller';
+import { DeleteController } from './delete.controller';
+import { PaginateController } from './paginate.controller';
+import { ShowController } from './show.controller';
 
-console.log('http index ');
-const UserController = [CreateController, FindAllController, FindOneController];
+const UserController = [
+  CreateController,
+  PaginateController,
+  ShowController,
+  DeleteController,
+];
 
 export default UserController;
