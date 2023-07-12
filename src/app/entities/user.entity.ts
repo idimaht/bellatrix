@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+// "typeorm": "ts-node ./node_modules/typeorm/cli",
 @Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn('increment')
