@@ -9,6 +9,7 @@ import {
   paginate,
 } from 'nestjs-typeorm-paginate';
 import { Request } from 'express';
+import { UpdateDto } from '../http/dtos/users/update.dto';
 
 @Injectable()
 export class UsersService {
@@ -51,7 +52,6 @@ export class UsersService {
     return user;
   }
 
-  // change use dto in this
   async create(dto: CreateDto): Promise<UserEntity> {
     try {
       const user = this.userRepository.create(dto);
@@ -61,15 +61,23 @@ export class UsersService {
     }
   }
 
+  async update(id: number, dto: UpdateDto): Promise<UserEntity> {
+    try {
+      const user = await this.findById(id);
+
+      Object.assign(user, dto);
+
+      return await this.userRepository.save(user);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async delete(id: number): Promise<any> {
     try {
-      console.log('delete', id);
-
       const user = await this.findById(id);
-      console.log('delete', user);
 
-      const deleteUser = this.userRepository.softDelete(user);
-      console.log('delete', deleteUser);
+      const deleteUser = await this.userRepository.delete(user);
 
       return deleteUser;
     } catch (error) {
