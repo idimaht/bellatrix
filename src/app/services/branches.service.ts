@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BulkOperationBase, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import {
   IPaginationOptions,
   Pagination,
@@ -64,26 +64,18 @@ export class BranchesService {
   }
 
   async update(id: number, dto: UpdateDto): Promise<BranchEntity> {
-    try {
-      const branch = await this.findById(id);
+    const branch = await this.findById(id);
 
-      Object.assign(branch, dto);
+    Object.assign(branch, dto);
 
-      return await this.branchRepository.save(branch);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.branchRepository.save(branch);
   }
 
   async delete(id: number): Promise<any> {
-    try {
-      console.log('delete', id);
+    console.log('delete', id);
 
-      const branch = await this.findById(id);
+    const branch = await this.findById(id);
 
-      return await this.branchRepository.softDelete(branch);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.branchRepository.softDelete(branch);
   }
 }
