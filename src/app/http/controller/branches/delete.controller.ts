@@ -1,4 +1,10 @@
-import { Controller, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  HttpException,
+  HttpStatus,
+  Param,
+} from '@nestjs/common';
 import { BranchesService } from 'src/app/services/branches.service';
 import { BranchEntity } from 'src/app/entities/branch.entity';
 
@@ -8,6 +14,17 @@ export class DeleteController {
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<BranchEntity> {
-    return this.branchesService.delete(id);
+    try {
+      return this.branchesService.delete(id);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'BRANCH_DELETE_ERROR',
+        },
+        HttpStatus.FORBIDDEN,
+        { cause: error },
+      );
+    }
   }
 }
