@@ -8,8 +8,8 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { Request } from 'express';
 import { BranchEntity } from '../entities/branch.entity';
-import { CreateDto } from '../http/dtos/branches/create.dto';
-import { UpdateDto } from '../http/dtos/branches/update.dto';
+import { CreateDto } from '../backend/dtos/branches/create.dto';
+import { UpdateDto } from '../backend/dtos/branches/update.dto';
 
 @Injectable()
 export class BranchesService {
@@ -55,12 +55,8 @@ export class BranchesService {
   }
 
   async create(dto: CreateDto): Promise<BranchEntity> {
-    try {
-      const user = this.branchRepository.create(dto);
-      return await this.branchRepository.save(user);
-    } catch (error) {
-      console.log(error);
-    }
+    const user = this.branchRepository.create(dto);
+    return await this.branchRepository.save(user);
   }
 
   async update(id: number, dto: UpdateDto): Promise<BranchEntity> {
@@ -71,11 +67,11 @@ export class BranchesService {
     return await this.branchRepository.save(branch);
   }
 
-  async delete(id: number): Promise<any> {
+  async delete(id: number): Promise<BranchEntity> {
     console.log('delete', id);
 
     const branch = await this.findById(id);
 
-    return await this.branchRepository.softDelete(branch);
+    return await this.branchRepository.softRemove(branch);
   }
 }

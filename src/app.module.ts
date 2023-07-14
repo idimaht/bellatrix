@@ -2,7 +2,7 @@ import typeorm from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HttpModule } from './app/http/http.module';
+import { HttpModule } from './app/backend/index.module';
 
 console.log('app module ', HttpModule);
 

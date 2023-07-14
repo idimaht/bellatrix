@@ -7,8 +7,8 @@ import {
   paginate,
 } from 'nestjs-typeorm-paginate';
 import { Request } from 'express';
-import { CreateDto } from '../http/dtos/branches/create.dto';
-import { UpdateDto } from '../http/dtos/branches/update.dto';
+import { CreateDto } from '../backend/dtos/branches/create.dto';
+import { UpdateDto } from '../backend/dtos/branches/update.dto';
 import { ManagerEntity } from '../entities/manager.entity';
 
 @Injectable()
@@ -75,13 +75,11 @@ export class ManagersService {
     }
   }
 
-  async delete(id: number): Promise<any> {
+  async delete(id: number): Promise<ManagerEntity> {
     try {
-      console.log('delete', id);
-
       const manager = await this.findById(id);
 
-      return await this.managersRepository.softDelete(manager);
+      return await this.managersRepository.softRemove(manager);
     } catch (error) {
       console.log(error);
     }

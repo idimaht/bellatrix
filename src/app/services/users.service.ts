@@ -2,14 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreateDto } from '../http/dtos/users/create.dto';
+import { CreateDto } from '../backend/dtos/users/create.dto';
 import {
   IPaginationOptions,
   Pagination,
   paginate,
 } from 'nestjs-typeorm-paginate';
 import { Request } from 'express';
-import { UpdateDto } from '../http/dtos/users/update.dto';
+import { UpdateDto } from '../backend/dtos/users/update.dto';
 
 @Injectable()
 export class UsersService {
