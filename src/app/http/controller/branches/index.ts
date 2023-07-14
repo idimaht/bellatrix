@@ -4,7 +4,7 @@ import { PaginateController } from './paginate.controller';
 import { ShowController } from './show.controller';
 import { UpdateController } from './update.controller';
 
-const BranchController = [
+const BranchesController = [
   CreateController,
   PaginateController,
   ShowController,
@@ -12,4 +12,4 @@ const BranchController = [
   UpdateController,
 ];
 
-export default BranchController;
+export default BranchesController;
