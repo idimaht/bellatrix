@@ -1,7 +1,7 @@
+import { ApiResource } from '@backend/resources/api.resource';
 import { Controller, Get, Param } from '@nestjs/common';
+import { ManagersService } from '@services/managers.service';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { ApiResource } from '../../resources/api.resource';
-import { ManagersService } from 'src/app/services/managers.service';
 
 @Controller({ path: 'managers' })
 export class ShowController {

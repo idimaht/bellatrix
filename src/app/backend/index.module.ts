@@ -12,7 +12,8 @@ import { BranchesService } from '../services/branches.service';
   imports: [
     TypeOrmModule.forFeature([UserEntity, BranchEntity, ManagerEntity]),
   ],
-  controllers: [...UsersController, ...BranchesController],
-  providers: [UsersService, BranchesService],
+  controllers: [...BranchesController],
+  providers: [BranchesService],
+  exports: [BranchesService],
 })
 export class HttpModule {}

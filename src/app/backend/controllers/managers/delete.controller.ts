@@ -1,7 +1,7 @@
+import { ApiResource } from '@backend/resources/api.resource';
 import { Controller, Delete, Param } from '@nestjs/common';
-import { ApiResource } from '../../resources/api.resource';
+import { ManagersService } from '@services/managers.service';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { ManagersService } from 'src/app/services/managers.service';
 
 @Controller({ path: 'managers' })
 export class DeleteController {

@@ -1,3 +1,4 @@
+import { ApiResource } from '@backend/resources/api.resource';
 import {
   Controller,
   DefaultValuePipe,
@@ -6,11 +7,10 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
+import { ManagersService } from '@services/managers.service';
 import { Request } from 'express';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
-import { ApiResource } from '../../resources/api.resource';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { ManagersService } from 'src/app/services/managers.service';
 
 @Controller({ path: 'managers' })
 export class PaginateController {

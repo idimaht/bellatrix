@@ -1,10 +1,10 @@
-import { CreateResource } from '../../resources/branches/create/create.resource';
+import { CreateDto } from '@backend/dtos/managers/create.dto';
+import { ApiResource } from '@backend/resources/api.resource';
+import { CreateResource } from '@backend/resources/managers/create/create.resource';
+import { Serialize } from '@interceptors/resource.interceptor';
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateDto } from '../../dtos/managers/create.dto';
+import { ManagersService } from '@services/managers.service';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { ApiResource } from '../../resources/api.resource';
-import { Serialize } from '../../../interceptors/resource.interceptor';
-import { ManagersService } from 'src/app/services/managers.service';
 
 @Controller({ path: 'managers' })
 export class CreateController {

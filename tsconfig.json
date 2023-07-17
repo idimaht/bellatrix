@@ -16,6 +16,20 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@config/*": ["src/config/*"],
+      "@database/*": ["src/database/*"],
+      "@backend/*": ["src/app/backend/*"],
+      "@controllers/*": ["src/app/backend/controllers/*"],
+      "@dtos/*": ["src/app/backend/dtos/*"],
+      "@resources/*": ["src/app/backend/resources/*"],
+      "@entities/*": ["src/app/entities/*"],
+      "@interceptors/*": ["src/app/interceptors/*"],
+      "@response/*": ["src/app/response/*"],
+      "@services/*": ["src/app/services/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
 }
