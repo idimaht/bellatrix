@@ -8,7 +8,7 @@ import { ApiResource } from '@backend/resources/api.resource';
 
 @Controller({ path: 'branches' })
 export class CreateController {
-  constructor(private branchesService: BranchesService) {}
+  constructor(private readonly branchesService: BranchesService) {}
 
   @Post()
   @Serialize(CreateResource)

@@ -9,7 +9,7 @@ import { SuccessResponseType } from 'src/app/responses/success-response.type';
 @Controller({ path: 'branches' })
 export class UpdateController {
   constructor(private readonly branchesService: BranchesService) {}
-  //create user
+
   @Patch(':id')
   @Serialize(UpdateResource)
   async update(
@@ -17,7 +17,8 @@ export class UpdateController {
     @Body() dto: UpdateDto,
   ): Promise<SuccessResponseType> {
     try {
-      const data = this.branchesService.update(id, dto);
+      const data = await this.branchesService.update(id, dto);
+
       return ApiResource.successResponse(data);
     } catch (error) {
       ApiResource.errorResponse(error);
