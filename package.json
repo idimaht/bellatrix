@@ -19,6 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:clear": "jest --clearCache",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "migration:run": "npm run typeorm migration:run -- -d ./src/config/typeorm.config.ts",
     "migration:generate": "npm run typeorm -- -d ./src/config/typeorm.config.ts migration:generate",
@@ -46,7 +47,7 @@
   "devDependencies": {
     "@nestjs/cli": "^10.1.1",
     "@nestjs/schematics": "^10.0.0",
-    "@nestjs/testing": "^10.0.0",
+    "@nestjs/testing": "^10.0.5",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
@@ -72,15 +73,24 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/app/backend/controllers/**/*.controller.ts",
+      "src/app/backend/services/**/*.controller.ts"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "<rootDir>/test/coverage",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "@backend/(.*)": "<rootDir>/src/app/backend/$1",
+      "@controllers/(.*)": "<rootDir>/src/app/backend/controllers/$1",
+      "@services/(.*)": "<rootDir>/src/app/services/$1",
+      "@interceptors/(.*)": "<rootDir>/src/app/interceptors/$1",
+      "@dtos/(.*)": "<rootDir>/src/app/backend/dtos/$1",
+      "@resources/(.*)": "<rootDir>/src/app/backend/resources/$1"
+    }
   }
 }

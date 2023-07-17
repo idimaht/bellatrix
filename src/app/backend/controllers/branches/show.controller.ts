@@ -1,7 +1,7 @@
+import { ApiResource } from '@backend/resources/api.resource';
 import { Controller, Get, Param } from '@nestjs/common';
+import { BranchesService } from '@services/branches.service';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { BranchesService } from 'src/app/services/branches.service';
-import { ApiResource } from '../../resources/api.resource';
 
 @Controller({ path: 'branches' })
 export class ShowController {

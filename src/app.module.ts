@@ -1,13 +1,12 @@
-import typeorm from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HttpModule } from './app/backend/index.module';
-
-console.log('app module ', HttpModule);
+import typeorm from '@config/typeorm.config';
+import { HttpModule } from '@backend/index.module';
 
 @Module({
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [typeorm],
@@ -18,8 +17,6 @@ console.log('app module ', HttpModule);
       useFactory: async (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
-
-    HttpModule,
   ],
 })
 export class AppModule {}

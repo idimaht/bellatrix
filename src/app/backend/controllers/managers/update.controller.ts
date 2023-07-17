@@ -1,10 +1,10 @@
+import { UpdateDto } from '@backend/dtos/managers/update.dto';
+import { ApiResource } from '@backend/resources/api.resource';
+import { UpdateResource } from '@backend/resources/managers/update/update.resource';
+import { Serialize } from '@interceptors/resource.interceptor';
 import { Body, Controller, Param, Patch } from '@nestjs/common';
-import { UpdateDto } from '../../dtos/branches/update.dto';
+import { ManagersService } from '@services/managers.service';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { ApiResource } from '../../resources/api.resource';
-import { ManagersService } from 'src/app/services/managers.service';
-import { Serialize } from 'src/app/interceptors/resource.interceptor';
-import { UpdateResource } from '../../resources/managers/update/update.resource';
 
 @Controller({ path: 'managers' })
 export class UpdateController {

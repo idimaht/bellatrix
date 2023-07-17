@@ -1,10 +1,10 @@
+import { UpdateDto } from '@backend/dtos/branches/update.dto';
+import { ApiResource } from '@backend/resources/api.resource';
+import { UpdateResource } from '@backend/resources/branches/update/update.resource';
+import { Serialize } from '@interceptors/resource.interceptor';
 import { Body, Controller, Param, Patch } from '@nestjs/common';
-import { BranchesService } from 'src/app/services/branches.service';
-import { UpdateDto } from '../../dtos/branches/update.dto';
+import { BranchesService } from '@services/branches.service';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { ApiResource } from '../../resources/api.resource';
-import { Serialize } from 'src/app/interceptors/resource.interceptor';
-import { UpdateResource } from '../../resources/branches/update/update.resource';
 
 @Controller({ path: 'branches' })
 export class UpdateController {
