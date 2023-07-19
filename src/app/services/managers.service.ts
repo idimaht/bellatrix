@@ -7,8 +7,8 @@ import {
   paginate,
 } from 'nestjs-typeorm-paginate';
 import { Request } from 'express';
-import { CreateDto } from '../backend/dtos/branches/create.dto';
-import { UpdateDto } from '../backend/dtos/branches/update.dto';
+import { CreateDto } from '../backend/dtos/managers/create.dto';
+import { UpdateDto } from '../backend/dtos/managers/update.dto';
 import { ManagerEntity } from '../entities/manager.entity';
 
 @Injectable()
@@ -55,33 +55,21 @@ export class ManagersService {
   }
 
   async create(dto: CreateDto): Promise<ManagerEntity> {
-    try {
-      const user = this.managersRepository.create(dto);
-      return await this.managersRepository.save(user);
-    } catch (error) {
-      console.log(error);
-    }
+    const user = this.managersRepository.create(dto);
+    return await this.managersRepository.save(user);
   }
 
   async update(id: number, dto: UpdateDto): Promise<ManagerEntity> {
-    try {
-      const manager = await this.findById(id);
+    const manager = await this.findById(id);
 
-      Object.assign(manager, dto);
+    Object.assign(manager, dto);
 
-      return await this.managersRepository.save(manager);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.managersRepository.save(manager);
   }
 
   async delete(id: number): Promise<ManagerEntity> {
-    try {
-      const manager = await this.findById(id);
+    const manager = await this.findById(id);
 
-      return await this.managersRepository.softRemove(manager);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.managersRepository.softRemove(manager);
   }
 }

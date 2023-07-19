@@ -8,5 +8,5 @@ export class PaginateDto {
   tel: string;
 
   @IsOptional()
-  address: string;
+  branchId: number;
 }

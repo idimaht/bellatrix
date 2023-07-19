@@ -15,6 +15,7 @@ export class CreateController {
   async create(@Body() dto: CreateDto): Promise<SuccessResponseType> {
     try {
       const data = await this.managersService.create(dto);
+
       return ApiResource.successResponse(data);
     } catch (error) {
       ApiResource.errorResponse(error);

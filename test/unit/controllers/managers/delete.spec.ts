@@ -1,12 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BranchesService } from '../../../../src/app/services/branches.service';
-import { BranchEntity } from '../../../../src/app/entities/branch.entity';
 import { plainToInstance } from 'class-transformer';
-import { DeleteController } from '../../../../src/app/backend/controllers/branches/delete.controller';
+import { DeleteController } from '../../../../src/app/backend/controllers/managers/delete.controller';
+import { ManagersService } from '../../../../src/app/services/managers.service';
 
-describe('branches controller', () => {
+describe('managers controller', () => {
   let controller: DeleteController;
-  let service: Partial<BranchesService>;
+  let service: Partial<ManagersService>;
 
   beforeEach(async () => {
     service = {
@@ -16,7 +15,7 @@ describe('branches controller', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: BranchesService,
+          provide: ManagersService,
           useValue: service,
         },
       ],
@@ -33,10 +32,10 @@ describe('branches controller', () => {
 
   describe('delete', () => {
     it('should response 200 ok', async () => {
-      const removeBranch = await controller.delete(1);
+      const removeManager = await controller.delete(1);
 
-      expect(removeBranch.status.statusCode).toEqual(200);
-      expect(removeBranch.status.message).toBe('OK');
+      expect(removeManager.status.statusCode).toEqual(200);
+      expect(removeManager.status.message).toBe('OK');
     });
   });
 

@@ -2,11 +2,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeorm from '@config/typeorm.config';
-import { HttpModule } from '@backend/index.module';
+import { BackendModule } from '@backend/index.module';
 
 @Module({
   imports: [
-    HttpModule,
+    BackendModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [typeorm],
