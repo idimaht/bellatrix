@@ -55,9 +55,9 @@ export class BranchesService {
   }
 
   async create(dto: CreateDto): Promise<BranchEntity> {
-    const user = this.branchRepository.create(dto);
+    const branch = this.branchRepository.create(dto);
 
-    return await this.branchRepository.save(user);
+    return await this.branchRepository.save(branch);
   }
 
   async update(id: number, dto: UpdateDto): Promise<BranchEntity> {

@@ -55,8 +55,8 @@ export class ManagersService {
   }
 
   async create(dto: CreateDto): Promise<ManagerEntity> {
-    const user = this.managersRepository.create(dto);
-    return await this.managersRepository.save(user);
+    const manager = this.managersRepository.create(dto);
+    return await this.managersRepository.save(manager);
   }
 
   async update(id: number, dto: UpdateDto): Promise<ManagerEntity> {
