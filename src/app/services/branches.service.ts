@@ -55,8 +55,9 @@ export class BranchesService {
   }
 
   async create(dto: CreateDto): Promise<BranchEntity> {
-    const user = this.branchRepository.create(dto);
-    return await this.branchRepository.save(user);
+    const branch = this.branchRepository.create(dto);
+
+    return await this.branchRepository.save(branch);
   }
 
   async update(id: number, dto: UpdateDto): Promise<BranchEntity> {
@@ -68,8 +69,6 @@ export class BranchesService {
   }
 
   async delete(id: number): Promise<BranchEntity> {
-    console.log('delete', id);
-
     const branch = await this.findById(id);
 
     return await this.branchRepository.softRemove(branch);

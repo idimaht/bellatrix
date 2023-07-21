@@ -8,5 +8,5 @@ export class CreateDto {
   tel: string;
 
   @IsOptional()
-  address: string;
+  branchId: number;
 }

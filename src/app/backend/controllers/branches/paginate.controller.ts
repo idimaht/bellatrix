@@ -6,15 +6,15 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
-import { BranchesService } from 'src/app/services/branches.service';
-import { ApiResource } from '../../resources/api.resource';
+import { ApiResource } from '@backend/resources/api.resource';
+import { BranchesService } from '@services/branches.service';
+import { Request } from 'express';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
 
 @Controller({ path: 'branches' })
 export class PaginateController {
-  constructor(private readonly branchesService: BranchesService) {}
+  constructor(private branchesService: BranchesService) {}
 
   @Get()
   async paginate(

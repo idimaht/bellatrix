@@ -8,5 +8,5 @@ export class UpdateDto {
   tel: string;
 
   @IsOptional()
-  address: string;
+  branchId: number;
 }

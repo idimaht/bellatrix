@@ -11,5 +11,5 @@ export class ManagerDto {
   tel: string;
 
   @Expose()
-  address: string;
+  branchId: number;
 }
