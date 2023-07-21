@@ -1,6 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 import {
   IPaginationOptions,
   Pagination,
@@ -9,12 +14,17 @@ import {
 import { Request } from 'express';
 import { MenuEntity } from '@entities/menu.entity';
 import { CreateDto } from '@backend/dtos/menus/create.dto';
+import { IngredientMenuService } from './ingredient-menu';
+import { UpdateDto } from '@backend/dtos/menus/update.dto';
+import { get, omit } from 'lodash';
 
 @Injectable()
 export class MenusService {
   constructor(
     @InjectRepository(MenuEntity)
     private menuRepository: Repository<MenuEntity>,
+    @InjectDataSource() private readonly dataSource: DataSource,
+    private readonly ingredientMenuService: IngredientMenuService,
   ) {}
 
   async paginate(
@@ -22,17 +32,17 @@ export class MenusService {
     options: IPaginationOptions,
   ): Promise<Pagination<MenuEntity>> {
     const builder = this.menuRepository
-      .createQueryBuilder('branches')
-      .leftJoinAndSelect('branches.managers', 'managers');
+      .createQueryBuilder('menus')
+      .leftJoinAndSelect('menus.ingredients', 'ingredients');
 
     // order by ASC | DESC
     if (req.query.orderBy) {
-      builder.orderBy('branches.id', `${req.query.orderBy}` as any);
+      builder.orderBy('menus.id', `${req.query.orderBy}` as any);
     }
 
     // filter
     if (req.query.search)
-      builder.where('branches.name LIKE :search', {
+      builder.where('menus.name LIKE :search', {
         search: `%${req.query.search}%`,
       });
 
@@ -54,9 +64,49 @@ export class MenusService {
   }
 
   async create(dto: CreateDto): Promise<MenuEntity> {
-    const menu = this.menuRepository.create(dto);
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
 
-    return await this.menuRepository.save(menu);
+    try {
+      await queryRunner.startTransaction();
+
+      const createDto = omit(dto, ['ingredients']);
+
+      const createMenu = this.menuRepository.create(createDto);
+
+      const menus = await queryRunner.manager.save(createMenu);
+
+      if (dto.ingredientId) {
+        await this.ingredientMenuService.attach(
+          get(dto, 'ingredientId', []),
+          menus,
+          queryRunner,
+        );
+      }
+
+      await queryRunner.commitTransaction();
+
+      return menus;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+
+      const errorStatusCode = get(error.response, 'errorStatusCode');
+
+      if (errorStatusCode === 404) {
+        throw error;
+      }
+
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'Cannot Create',
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: error,
+        },
+      );
+    }
   }
 
   async update(id: number, dto: UpdateDto): Promise<MenuEntity> {

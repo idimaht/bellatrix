@@ -10,5 +10,5 @@ export class CreateDto {
 
   @Type(() => Number)
   @IsNotEmpty()
-  ingredients: number[];
+  ingredientId: number[];
 }

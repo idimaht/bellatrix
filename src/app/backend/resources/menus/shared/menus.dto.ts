@@ -1,5 +1,5 @@
 import { IngredientDto } from '@backend/resources/ingredients/shared/ingredient.dto';
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
 export class MenuDto {
   @Expose()
@@ -12,5 +12,6 @@ export class MenuDto {
   price: number;
 
   @Expose()
+  @Type(() => IngredientDto)
   ingredients: IngredientDto[];
 }

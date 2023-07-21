@@ -1,8 +1,8 @@
 import { Expose, Type } from 'class-transformer';
-import { Resource } from '../../resource';
+import { Resources } from '@backend/resources/resources';
 import { IngredientDto } from '../shared/ingredient.dto';
 
-export class UpdateResource extends Resource {
+export class PaginateResource extends Resources {
   @Expose()
   @Type(() => IngredientDto)
   data: IngredientDto[];

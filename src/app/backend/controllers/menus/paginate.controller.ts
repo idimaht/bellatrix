@@ -10,20 +10,20 @@ import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { ApiResource } from '@backend/resources/api.resource';
 import { Request } from 'express';
 import { SuccessResponseType } from 'src/app/responses/success-response.type';
-import { IngredientsService } from '@services/ingredients.service';
 import { Serialize } from '@interceptors/resource.interceptor';
-import { PaginateResource } from '@backend/resources/ingredients/paginate/paginate.resource';
+import { MenusService } from '@services/menus.service';
+import { PaginateResource } from '@backend/resources/menus/paginate/paginate.resource';
 
-@Controller({ path: 'ingredients' })
+@Controller({ path: 'menus' })
 export class PaginateController {
-  constructor(private ingredientsService: IngredientsService) {}
+  constructor(private menusService: MenusService) {}
 
   @Get()
   @Serialize(PaginateResource)
   async paginate(
     @Req() req: Request,
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 5,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 1,
   ): Promise<SuccessResponseType> {
     try {
       const options: IPaginationOptions = {
@@ -31,7 +31,7 @@ export class PaginateController {
         limit,
       };
 
-      const data = await this.ingredientsService.paginate(req, options);
+      const data = await this.menusService.paginate(req, options);
 
       return ApiResource.successResponse(data);
     } catch (error) {

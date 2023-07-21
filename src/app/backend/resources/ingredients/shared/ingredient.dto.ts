@@ -1,5 +1,5 @@
 import { MenuDto } from '@backend/resources/menus/shared/menus.dto';
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
 export class IngredientDto {
   @Expose()
@@ -12,5 +12,6 @@ export class IngredientDto {
   amount: number;
 
   @Expose()
+  @Type(() => MenuDto)
   menus: MenuDto[];
 }

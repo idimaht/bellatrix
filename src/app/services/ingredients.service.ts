@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import {
   IPaginationOptions,
   Pagination,
@@ -52,6 +52,14 @@ export class IngredientsService {
     }
 
     return ingredient;
+  }
+
+  async getByIds(ids: number[]): Promise<IngredientEntity[]> {
+    return await this.ingredientRepository.find({
+      where: {
+        id: In(ids),
+      },
+    });
   }
 
   async create(dto: CreateDto): Promise<IngredientEntity> {
