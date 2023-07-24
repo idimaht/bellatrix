@@ -1,36 +1,36 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CreateController } from '@controllers/branches/create.controller';
+import { BranchesService } from '@services/branches.service';
+import { CreateDto } from '@backend/dtos/branches/create.dto';
+import { BranchEntity } from '@entities/branch.entity';
 import { plainToInstance } from 'class-transformer';
-import { CreateController } from ' @backend/controllers/managers/create.controller';
-import { ManagersService } from '../../../../src/app/services/managers.service';
-import { ManagerEntity } from '../../../../src/app/entities/manager.entity';
-import { CreateDto } from '../../../../src/app/backend/dtos/managers/create.dto';
 
 const dto: CreateDto = {
   name: 'a',
   tel: '0999999999',
-  branchId: 1,
+  address: 'bangkok, thailand',
 };
 
-describe('managers controller', () => {
+describe('branches controller', () => {
   let controller: CreateController;
-  let service: Partial<ManagersService>;
+  let service: Partial<BranchesService>;
 
   beforeEach(async () => {
     service = {
       create: (dto: CreateDto) => {
-        const manager: ManagerEntity = plainToInstance(ManagerEntity, {
+        const branch: BranchEntity = plainToInstance(BranchEntity, {
           id: 1,
           ...dto,
         });
 
-        return Promise.resolve(manager);
+        return Promise.resolve(branch);
       },
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: ManagersService,
+          provide: BranchesService,
           useValue: service,
         },
       ],
@@ -47,11 +47,11 @@ describe('managers controller', () => {
 
   describe('create', () => {
     it('should response 200 ok', async () => {
-      const addManager = await controller.create(dto);
+      const addBranch = await controller.create(dto);
 
-      expect(addManager.status.statusCode).toEqual(200);
-      expect(addManager.status.message).toBe('OK');
-      expect(addManager.data.name).toBe('a');
+      expect(addBranch.status.statusCode).toEqual(200);
+      expect(addBranch.status.message).toBe('OK');
+      expect(addBranch.data.name).toBe('a');
     });
   });
 

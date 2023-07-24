@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { plainToInstance } from 'class-transformer';
-import { DeleteController } from '../../../../src/app/backend/controllers/managers/delete.controller';
-import { ManagersService } from '../../../../src/app/services/managers.service';
+import { DeleteController } from '@controllers/managers/delete.controller';
+import { ManagersService } from '@services/managers.service';
 
 describe('managers controller', () => {
   let controller: DeleteController;

@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
-import { UpdateDto } from '../../../../src/app/backend/dtos/managers/update.dto';
-import { ManagersService } from '../../../../src/app/services/managers.service';
-import { ManagerEntity } from '../../../../src/app/entities/manager.entity';
-import { UpdateController } from '../../../../src/app/backend/controllers/managers/update.controller';
+import { UpdateDto } from '@dtos/managers/update.dto';
+import { ManagersService } from '@services/managers.service';
+import { ManagerEntity } from '@entities/manager.entity';
+import { UpdateController } from '@controllers/managers/update.controller';
 
 const dto: UpdateDto = {
   name: 'b',

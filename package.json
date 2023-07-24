@@ -87,6 +87,7 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "@backend/(.*)": "<rootDir>/src/app/backend/$1",
+      "@entities/(.*)": "<rootDir>/src/app/entities/$1",
       "@controllers/(.*)": "<rootDir>/src/app/backend/controllers/$1",
       "@services/(.*)": "<rootDir>/src/app/services/$1",
       "@interceptors/(.*)": "<rootDir>/src/app/interceptors/$1",

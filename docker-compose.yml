@@ -1,4 +1,4 @@
-version: '3.5'
+version: '2'
 
 services:
   database:
@@ -12,28 +12,28 @@ services:
     ports:
       - '5432:5432'
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: bellatrix-nest
-    environment:
-      - PORT=${PORT}
-    ports:
-      - '3002:3002'
-    depends_on:
-      - database
-    volumes:
-      - ./src:/app/src
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: bellatrix-nest
+  #   environment:
+  #     - PORT=${PORT}
+  #   ports:
+  #     - '3002:3002'
+  #   depends_on:
+  #     - database
+  #   volumes:
+  #     - ./src:/app/src
 
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    container_name: pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=user@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=mysecretpassword
-    ports:
-      - '80:80'
-    depends_on:
-      - database
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   container_name: pgadmin4
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=user@domain.com
+  #     - PGADMIN_DEFAULT_PASSWORD=mysecretpassword
+  #   ports:
+  #     - '80:80'
+  #   depends_on:
+  #     - database

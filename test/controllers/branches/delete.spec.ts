@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BranchesService } from '../../../../src/app/services/branches.service';
-import { BranchEntity } from '../../../../src/app/entities/branch.entity';
-import { plainToInstance } from 'class-transformer';
-import { DeleteController } from '../../../../src/app/backend/controllers/branches/delete.controller';
+import { BranchesService } from '@services/branches.service';
+import { DeleteController } from '@controllers/branches/delete.controller';
 
 describe('branches controller', () => {
   let controller: DeleteController;

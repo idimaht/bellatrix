@@ -1,31 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { BranchesService } from '@services/branches.service';
+import { BranchEntity } from '@entities/branch.entity';
 import { plainToInstance } from 'class-transformer';
-import { ShowController } from '../../../../src/app/backend/controllers/managers/show.controller';
-import { ManagersService } from '../../../../src/app/services/managers.service';
-import { ManagerEntity } from '../../../../src/app/entities/manager.entity';
+import { ShowController } from '@controllers/branches/show.controller';
 
-describe('managers controller', () => {
+describe('branches controller', () => {
   let controller: ShowController;
-  let service: Partial<ManagersService>;
+  let service: Partial<BranchesService>;
 
   beforeEach(async () => {
     service = {
       findById: (id: number) => {
-        const manager: ManagerEntity = plainToInstance(ManagerEntity, {
+        const branch: BranchEntity = plainToInstance(BranchEntity, {
           id,
           name: 'a',
           tel: '0999999999',
-          branchId: 1,
+          address: 'bangkok, thailand',
         });
 
-        return Promise.resolve(manager);
+        return Promise.resolve(branch);
       },
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: ManagersService,
+          provide: BranchesService,
           useValue: service,
         },
       ],
@@ -42,11 +42,11 @@ describe('managers controller', () => {
 
   describe('show', () => {
     it('should response 200 ok', async () => {
-      const showManager = await controller.show(1);
+      const showBranch = await controller.show(1);
 
-      expect(showManager.status.statusCode).toEqual(200);
-      expect(showManager.status.message).toBe('OK');
-      expect(showManager.data.name).toBe('a');
+      expect(showBranch.status.statusCode).toEqual(200);
+      expect(showBranch.status.message).toBe('OK');
+      expect(showBranch.data.name).toBe('a');
     });
   });
 

@@ -1,36 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateController } from '../../../../src/app/backend/controllers/branches/create.controller';
-import { BranchesService } from '../../../../src/app/services/branches.service';
-import { CreateDto } from '../../../../src/app/backend/dtos/branches/create.dto';
-import { BranchEntity } from '../../../../src/app/entities/branch.entity';
 import { plainToInstance } from 'class-transformer';
+import { CreateDto } from '@dtos/ingredients/create.dto';
+import { CreateController } from '@controllers/ingredients/create.controller';
+import { IngredientsService } from '@services/ingredients.service';
+import { IngredientEntity } from '@entities/ingredient.entity';
 
 const dto: CreateDto = {
   name: 'a',
-  tel: '0999999999',
-  address: 'bangkok, thailand',
+  amount: 2000,
 };
 
-describe('branches controller', () => {
+describe('ingredients controller', () => {
   let controller: CreateController;
-  let service: Partial<BranchesService>;
+  let service: Partial<IngredientsService>;
 
   beforeEach(async () => {
     service = {
       create: (dto: CreateDto) => {
-        const branch: BranchEntity = plainToInstance(BranchEntity, {
+        const manager: IngredientEntity = plainToInstance(IngredientEntity, {
           id: 1,
           ...dto,
         });
 
-        return Promise.resolve(branch);
+        return Promise.resolve(manager);
       },
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: BranchesService,
+          provide: IngredientsService,
           useValue: service,
         },
       ],
@@ -47,11 +46,11 @@ describe('branches controller', () => {
 
   describe('create', () => {
     it('should response 200 ok', async () => {
-      const addBranch = await controller.create(dto);
+      const addIngredient = await controller.create(dto);
 
-      expect(addBranch.status.statusCode).toEqual(200);
-      expect(addBranch.status.message).toBe('OK');
-      expect(addBranch.data.name).toBe('a');
+      expect(addIngredient.status.statusCode).toEqual(200);
+      expect(addIngredient.status.message).toBe('OK');
+      expect(addIngredient.data.name).toBe('a');
     });
   });
 

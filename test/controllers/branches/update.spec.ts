@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BranchesService } from '../../../../src/app/services/branches.service';
-import { BranchEntity } from '../../../../src/app/entities/branch.entity';
+import { BranchesService } from '@services/branches.service';
+import { BranchEntity } from '@entities/branch.entity';
 import { plainToInstance } from 'class-transformer';
-import { UpdateDto } from '../../../../src/app/backend/dtos/branches/update.dto';
-import { UpdateController } from '../../../../src/app/backend/controllers/branches/update.controller';
+import { UpdateDto } from '@dtos/branches/update.dto';
+import { UpdateController } from '@controllers/branches/update.controller';
 
 const dto: UpdateDto = {
   name: 'b',

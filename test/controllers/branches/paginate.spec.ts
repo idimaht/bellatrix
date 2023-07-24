@@ -1,51 +1,51 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { BranchesService } from '@services/branches.service';
+import { BranchEntity } from '@entities/branch.entity';
 import { plainToInstance } from 'class-transformer';
+import { PaginateController } from '@controllers/branches/paginate.controller';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { PaginateController } from '../../../../src/app/backend/controllers/managers/paginate.controller';
-import { ManagersService } from '../../../../src/app/services/managers.service';
-import { ManagerEntity } from '../../../../src/app/entities/manager.entity';
 
-var httpMocks = require('node-mocks-http');
+let httpMocks = require('node-mocks-http');
 
 const request = httpMocks.createRequest({
   method: 'PATCH',
-  url: '/managers',
+  url: '/branches',
   params: {
-    search: 'b',
+    search: 'a',
     orderBy: 'ASC',
   },
 });
 
-describe('managers controller', () => {
+describe('branches controller', () => {
   let controller: PaginateController;
-  let service: Partial<ManagersService>;
+  let service: Partial<BranchesService>;
 
   beforeEach(async () => {
     service = {
       paginate: () => {
-        const manager: ManagerEntity = plainToInstance(ManagerEntity, {
-          id: 1,
+        const branch: BranchEntity = plainToInstance(BranchEntity, {
+          id: 4,
           name: 'a',
-          tel: '0999999999',
-          branchId: 1,
+          tel: '0999999995',
+          address: 'bangkok, thailand',
         });
 
-        const manager2: ManagerEntity = plainToInstance(ManagerEntity, {
-          id: 2,
+        const branch2: BranchEntity = plainToInstance(BranchEntity, {
+          id: 4,
           name: 'a',
-          tel: '0999999999',
-          branchId: 1,
+          tel: '0999999995',
+          address: 'bangkok, thailand',
         });
 
-        const manager3: ManagerEntity = plainToInstance(ManagerEntity, {
-          id: 3,
+        const branch3: BranchEntity = plainToInstance(BranchEntity, {
+          id: 4,
           name: 'a',
-          tel: '0999999999',
-          branchId: 1,
+          tel: '0999999995',
+          address: 'bangkok, thailand',
         });
 
         return Promise.resolve({
-          items: [manager, manager2, manager3],
+          items: [branch, branch2, branch3],
           meta: {
             totalItems: 1,
             itemCount: 1,
@@ -54,14 +54,14 @@ describe('managers controller', () => {
             currentPage: 1,
           },
           links: {},
-        } as Pagination<ManagerEntity>);
+        } as Pagination<BranchEntity>);
       },
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: ManagersService,
+          provide: BranchesService,
           useValue: service,
         },
       ],
@@ -80,11 +80,11 @@ describe('managers controller', () => {
     it('should response 200 ok', async () => {
       jest.spyOn(service, 'paginate');
 
-      const manager = await controller.paginate(request);
+      const branch = await controller.paginate(request);
 
-      expect(manager.data.length).toEqual(3);
-      expect(manager.status.statusCode).toEqual(200);
-      expect(manager.status.message).toBe('OK');
+      expect(branch.data.length).toEqual(3);
+      expect(branch.status.statusCode).toEqual(200);
+      expect(branch.status.message).toBe('OK');
     });
   });
 
